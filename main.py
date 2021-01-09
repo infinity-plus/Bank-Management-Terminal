@@ -1,5 +1,3 @@
-from re import L
-import sys
 import Employee_end as Ee
 
 while(True):
