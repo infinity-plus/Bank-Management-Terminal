@@ -10,8 +10,7 @@ while(True):
         Else press any key to exit\n''')
     if a not in ['1', '2', '3', '4', '5']:
         break
-    else:
-        a = int(a)
+    a = int(a)
     if(a == 1):
         while(True):
             b = input("Enter Name\n")
@@ -23,8 +22,7 @@ while(True):
                     'Press Y to try once more, else press any kry to exit\n').lower()
                 if(e != 'y'):
                     break
-                else:
-                    continue
+                continue
             else:
                 e = input(
                     f'Press Y to create account with details Name = {b}, Phone = {c},Email = {d}, Else press any key to main menu\n').lower()
