@@ -36,7 +36,6 @@ def date_verify(a):
     return month_verify(a)
 
 def date_input():
-    try:
         a = input('Enter Year \n')
         a = '0'*(4-len(a))+a
         b = input('Enter Month \n')
@@ -51,5 +50,3 @@ def date_input():
                 return(True, d)
             return(False, date_verify(d)[1])
         return(False, month_verify(d)[1])
-    except:
-        return(False, "Please enter the date correctly")
