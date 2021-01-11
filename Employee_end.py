@@ -161,16 +161,15 @@ def trans_history(account):
                             return (True,i)   #Here Loop on this value and Print Details
                         return (False,c[1])
                     return (False,b[1])
-                else:
-                    b = date_input()
-                    if(b[0] is True):
-                        i = []
-                        mycursor.execute("select transid, sender, beneficiary, date, sender_amount from trans natural join amount where Date = %s and sender = %s", (b[1], account))
-                        i.append(mycursor.fetchall())
-                        mycursor1.execute("select transid, sender, beneficiary, date, Beneficiary_amount from trans natural join amount where Date = %s and beneficiary = %s", (b[1], account))
-                        i.append(mycursor1.fetchall())
-                        return (True, i)
-                    return (False,b[1])
+                b = date_input()
+                if(b[0] is True):
+                    i = []
+                    mycursor.execute("select transid, sender, beneficiary, date, sender_amount from trans natural join amount where Date = %s and sender = %s", (b[1], account))
+                    i.append(mycursor.fetchall())
+                    mycursor1.execute("select transid, sender, beneficiary, date, Beneficiary_amount from trans natural join amount where Date = %s and beneficiary = %s", (b[1], account))
+                    i.append(mycursor1.fetchall())
+                    return (True, i)
+                return (False,b[1])
 def close_account( account):
     #if(check_account(account)):
         if(check_balance(str(account)) == '0'):
@@ -202,15 +201,13 @@ def select_account(name):
         k+=1
     if(k == 0):
         return (False,"Account Does't Exsist\n")
-    else:
-        while(True):
-            a = input("\nEnter Serial number\n")
-            if(a.isdigit()):
-                a = int(a)
-                if(a>0 and a<int(k+1)):
-                    return (True,j[int(a)-1][1])
-                else:
-                    print("Please Select from given\n")
-            else:
-                print("Please enter digits only\n")
+    while(True):
+        a = input("\nEnter Serial number\n")
+        if(a.isdigit()):
+            a = int(a)
+            if(a>0 and a<int(k+1)):
+                return (True,j[int(a)-1][1])
+            print("Please Select from given\n")
+        else:
+            print("Please enter digits only\n")
 #print(select_account('%Saurav%'))
