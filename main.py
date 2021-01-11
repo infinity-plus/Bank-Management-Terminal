@@ -13,29 +13,30 @@ while(True):
     else:
         a = int(a)
     if(a == 1):
-        b = input("Enter Name\n")
-        c = input("Enter Phone number\n")
-        d = input("Enter Email Id\n")
-        if not(c.isdigit() or len(c) != 10):
-            print("Kindly enter digits only and/or enter 10 digits only\n")
-            e = input(
-                'Press Y to try once more, else press any kry to exit\n').lower()
-            if(e != 'y'):
-                continue
-            else:
-                continue
-        else:
-            e = input(
-                f'Press Y to create account with details Name = {b}, Phone = {c},Email = {d}, Else press any key to main menu\n').lower()
-            if(e != 'y'):
-                continue
-            else:
-                f = Ee.new_user(b, c, d)
-                print(f[1])
+        while(True):
+            b = input("Enter Name\n")
+            c = input("Enter Phone number\n")
+            d = input("Enter Email Id\n")
+            if not(c.isdigit() or len(c) != 10):
+                print("Kindly enter digits only and/or enter 10 digits only\n")
                 e = input(
-                    'Press y to do again else press anykey to Exit\n').lower()
+                    'Press Y to try once more, else press any kry to exit\n').lower()
+                if(e != 'y'):
+                    break
+                else:
+                    continue
+            else:
+                e = input(
+                    f'Press Y to create account with details Name = {b}, Phone = {c},Email = {d}, Else press any key to main menu\n').lower()
                 if(e != 'y'):
                     continue
+                else:
+                    f = Ee.new_user(b, c, d)
+                    print(f[1])
+                    e = input(
+                        'Press y to do again else press anykey to Exit\n').lower()
+                    if(e != 'y'):
+                        continue
 
     if(a == 2):
         z = 0
@@ -188,11 +189,16 @@ while(True):
                                 k += 1
                             else:
                                 x += 1
-                        print()
-                        #print(i, end = '')
+                        print('\n')
                         y += 1
                     if(k == 0 and x == 0):
                         print("No History Founded\n")
+                        e = input(
+                            'Press y to do again else press anykey to Main Menu\n').lower()
+                        if(e != 'y'):
+                            z = 1
+                            continue
+                    else:
                         e = input(
                             'Press y to do again else press anykey to Main Menu\n').lower()
                         if(e != 'y'):

@@ -52,24 +52,12 @@ def new_user( name, phone, email):
     mydb.commit()
     return (True,"Successfully new Account Created with account number - "+account+"\nFirst Transaction id is " + account+'1')
 
-# def check_account(account):
-#         if(account.isdigit()):
-#                 if(len(account) == 16):
-#                     mycursor.execute("select account from user")
-#                     for i in mycursor:
-#                         if i == (account,):
-#                             return (True,)
-#                     return (False, "Account Doesn't Exists\n")
-#                 return(False, "Account Number is not of 16 digits\n")
-#         return(False, "Please Enter Numbers Only\n")
-
 def account_details( reciever):
     mycursor.execute("Select account, name, email, Balance from user where account = %s", (reciever,))
     f = mycursor.fetchall()
     return f
 
 def check_balance(account):
-    # if(check_account(account)):
     mycursor.execute("select balance from user where account = %s", (account,))
     a = mycursor.fetchall()
     return a[0][0]
@@ -199,7 +187,6 @@ def close_account( account):
             return "Operation Cancelled"
         mycursor.execute("delete from user where account = %s", (account,))
         return "Account deleted succesfully and Rs " + k + " will be returned to you as cash"
-    #return "account doesn't exsist"
 
 def select_account(name):
     k,j = 0,[]
