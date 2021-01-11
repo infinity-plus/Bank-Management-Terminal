@@ -23,18 +23,16 @@ while(True):
                 if(e != 'y'):
                     break
                 continue
-            else:
-                e = input(
-                    f'Press Y to create account with details Name = {b}, Phone = {c},Email = {d}, Else press any key to main menu\n').lower()
-                if(e != 'y'):
-                    continue
-                else:
-                    f = Ee.new_user(b, c, d)
-                    print(f[1])
-                    e = input(
-                        'Press y to do again else press anykey to Exit\n').lower()
-                    if(e != 'y'):
-                        continue
+            e = input(
+                f'Press Y to create account with details Name = {b}, Phone = {c},Email = {d}, Else press any key to main menu\n').lower()
+            if(e != 'y'):
+                continue
+            f = Ee.new_user(b, c, d)
+            print(f[1])
+            e = input(
+                'Press y to do again else press anykey to Exit\n').lower()
+            if(e != 'y'):
+                continue
 
     if(a == 2):
         z = 0
@@ -63,9 +61,9 @@ while(True):
             if not(b.isdigit()):
                 z = 1
                 continue
-            elif(int(b) not in range(1, 4)):
+            if(int(b) not in range(1, 4)):
                 continue
-            elif(int(b) == 1):
+            if(int(b) == 1):
                 c = input("Enter Amount in Rupees to transfer\n")
                 if not(c.isdigit()):
                     print("Please Enter amount in digits only\n")
