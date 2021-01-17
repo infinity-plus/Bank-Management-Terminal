@@ -19,20 +19,20 @@ while(True):
             if not(c.isdigit() or len(c) != 10):
                 print("Kindly enter digits only and/or enter 10 digits only\n")
                 e = input(
-                    'Press Y to try once more, else press any kry to exit\n').lower()
+                    'Press Y to try once more, else press any key to main menu\n').lower()
                 if(e != 'y'):
                     break
                 continue
             e = input(
                 f'Press Y to create account with details Name = {b}, Phone = {c},Email = {d}, Else press any key to main menu\n').lower()
             if(e != 'y'):
-                continue
+                break
             f = Ee.new_user(b, c, d)
             print(f[1])
             e = input(
-                'Press y to do again else press anykey to Exit\n').lower()
+                'Press y to do again else press any key to main menu\n').lower()
             if(e != 'y'):
-                continue
+                break
 
     if(a == 2):
         z = 0
@@ -43,13 +43,13 @@ while(True):
                 print("Account_Number   Name    Email     Balance\n")
                 print(Ee.account_details(c[1]))
                 e = input(
-                    'Press y to do again else press anykey to Exit\n').lower()
+                    'Press y to do again else press any key to main menu\n').lower()
                 if(e != 'y'):
                     z = 1
             else:
                 print(c[0])
                 e = input(
-                    'Press y to do again else press anykey to Exit\n').lower()
+                    'Press y to do again else press any key to main menu\n').lower()
                 if(e != 'y'):
                     z = 1
 
@@ -68,14 +68,14 @@ while(True):
                 if not(c.isdigit()):
                     print("Please Enter amount in digits only\n")
                     e = input(
-                        'Press Y to do again else press anykey to Exit\n').lower()
+                        'Press Y to do again else press any key to main menu\n').lower()
                     if(e != 'y'):
                         z = 1
                         continue
-                if(len(c)>=10):
+                if(len(c) >= 10):
                     print("Kindly Enter a small amount\n")
                     e = input(
-                        'Press Y to do again else press anykey to Exit\n').lower()
+                        'Press Y to do again else press any key to main menu\n').lower()
                     if(e != 'y'):
                         z = 1
                         continue
@@ -90,21 +90,21 @@ while(True):
                         f = Ee.trans(c, 1, m[1], n[1])
                         print(f)
                         e = input(
-                            'Press y to do again else press anykey to Main Menu\n').lower()
+                            'Press y to do again else press any key to Main Menu\n').lower()
                         if(e != 'y'):
                             z = 1
                             continue
                     else:
                         print(n[1])
                         e = input(
-                            'Press y to do again else press anykey to Main Menu\n').lower()
+                            'Press y to do again else press any key to Main Menu\n').lower()
                         if(e != 'y'):
                             z = 1
                             continue
                 else:
                     print(m[1])
                     e = input(
-                        'Press y to do again else press anykey to Main Menu\n').lower()
+                        'Press y to do again else press any key to Main Menu\n').lower()
                     if(e != 'y'):
                         z = 1
                         continue
@@ -113,7 +113,7 @@ while(True):
                 if not(c.isdigit()):
                     print("Please Enter amount in digits only\n")
                     e = input(
-                        'Press y to do again else press anykey to Main Menu\n').lower()
+                        'Press y to do again else press any key to Main Menu\n').lower()
                     if(e != 'y'):
                         z = 1
                         continue
@@ -124,14 +124,14 @@ while(True):
                     f = Ee.trans(c, 2, e[1])
                     print(f)
                     e = input(
-                        'Press y to do again else press anykey to Main Menu\n').lower()
+                        'Press y to do again else press any key to Main Menu\n').lower()
                     if(e != 'y'):
                         z = 1
                         continue
                 else:
                     print(e[1])
                     e = input(
-                        'Press y to do again else press anykey to Main Menu\n').lower()
+                        'Press y to do again else press any key to Main Menu\n').lower()
                     if(e != 'y'):
                         z = 1
                         continue
@@ -140,7 +140,7 @@ while(True):
                 if not(c.isdigit()):
                     print("Please Enter amount in digits only\n")
                     e = input(
-                        'Press y to do again else press anykey to Main Menu\n').lower()
+                        'Press y to do again else press any key to Main Menu\n').lower()
                     if(e != 'y'):
                         z = 1
                         continue
@@ -152,17 +152,17 @@ while(True):
                     f = Ee.trans(c, 3, e[1])
                     print(f)
                     e = input(
-                        'Press y to do again else press anykey to Main Menu\n').lower()
+                        'Press y to do again else press any key to Main Menu\n').lower()
                     if(e != 'y'):
                         z = 1
                         continue
                 else:
                     print(e[1])
                     e = input(
-                        'Press y to do again else press anykey to Main Menu\n').lower()
+                        'Press y to do again else press any key to Main Menu\n').lower()
                     if(e != 'y'):
                         z = 1
-                        continue
+                        break
 
     if(a == 4):
         z = 0
@@ -173,7 +173,7 @@ while(True):
                 d = Ee.trans_history(c[1])
                 if(d[0]):
                     k, x, y = 0, 0, 0
-                    #print(d[1])
+                    # print(d[1])
                     for i in d[1]:
                         for j in i:
                             if(k == 0 or x == 0):
@@ -190,43 +190,43 @@ while(True):
                     if(k == 0 and x == 0):
                         print("No History Founded\n")
                         e = input(
-                            'Press y to do again else press anykey to Main Menu\n').lower()
+                            'Press y to do again else press any key to Main Menu\n').lower()
                         if(e != 'y'):
                             z = 1
-                            continue
+                            break
                     else:
                         e = input(
-                            'Press y to do again else press anykey to Main Menu\n').lower()
+                            'Press y to do again else press any key to Main Menu\n').lower()
                         if(e != 'y'):
                             z = 1
-                            continue
+                            break
                 else:
                     print(d[1])
                     e = input(
-                        'Press y to do again else press anykey to Main Menu\n').lower()
+                        'Press y to do again else press any key to Main Menu\n').lower()
                     if(e != 'y'):
                         z = 1
-                        continue
+                        break
             else:
                 print(c[1])
                 e = input(
-                    'Press y to do again else press anykey to Main Menu\n').lower()
+                    'Press y to do again else press any key to Main Menu\n').lower()
                 if(e != 'y'):
                     z = 1
-                    continue
+                    break
     elif(a == 5):
         while(True):
             b = '%'+input('Enter Name of Customer\n')+'%'
             c = Ee.select_account(b)
             if(c[0]):
-                Ee.close_account(c[1])
+                print(Ee.close_account(c[1]))
                 e = input(
-                    'Press y to do again else press anykey to Main Menu\n').lower()
+                    'Press y to do again else press any key to Main Menu\n').lower()
                 if(e != 'y'):
-                    continue
+                    break
             else:
                 print(c[1])
                 e = input(
-                    'Press y to do again else press anykey to Main Menu\n').lower()
+                    'Press y to do again else press any key to Main Menu\n').lower()
                 if(e != 'y'):
-                    continue
+                    break
