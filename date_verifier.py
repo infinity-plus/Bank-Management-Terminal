@@ -1,21 +1,21 @@
 # Date Verification Module
 
 def leap_year(a):
-    b = int(a[:4])
+    b = int(a.split('/')[0])
     return bool((b%4 == 0 and b%100 != 0) or b% 400 == 0)
 
 def month_verify(a):
-    b = int(a[5:7])
+    b = int(a.split('/')[1])
     if(b > 0 and b < 13):
-        if( b in "01 03 05 07 08 10 12".split()):
+        if( b in [1,3,5,7,8,10,12]):
             return (True,'1')
-        if(b in "04 06 09 11".split()):
+        if(b in [4,6,9,11].split()):
             return (True,'2')
         return (True,'3')
     return (False,"Month should only lie between 1 to 12")
 
 def date_verify(a):
-    b = int(a[8:])
+    b = int(a.split('/')[2])
     if(month_verify(a)[0]):
         if(b >0 and b < 32):
             c = month_verify(a)[1]
@@ -24,15 +24,15 @@ def date_verify(a):
             if(c == '2'):
                 if(b < 31):
                     return (True,)
-                return(False, 'Date in this month must be between 0 to 30')
+                return(False, 'Date in this month must be between 1 to 30')
             if(leap_year(a)):
                 if (b < 30):
                     return (True,)
-                return (False, 'Date in February of Leap year must be in 0 to 29')
+                return (False, 'Date in February of Leap year must be in 1 to 29')
             if(b < 29):
                 return (True,)
-            return (False, 'Date in February of a Normal year must be in 0 to 28')
-        return (False, 'Date on any month must be in 0 to 31')
+            return (False, 'Date in February of a Normal year must be in 1 to 28')
+        return (False, 'Date on any month must be in 1 to 31')
     return month_verify(a)
 
 def date_input():
@@ -44,7 +44,7 @@ def date_input():
         c = '0'*(2 - len(c))+c
         if not(a.isdigit() and b.isdigit() and c.isdigit()):
             return (False,"Please Enter digits only\n")
-        d = a+'/'+b+'/'+c
+        d = f'{a}/{b}/{c}'
         if(month_verify(d)[0]):
             if(date_verify(d)[0]):
                 return(True, d)

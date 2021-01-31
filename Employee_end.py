@@ -17,8 +17,6 @@ mycursor.execute('create table if not exists user(account char(17) Primary Key, 
 mycursor.execute('create table if not exists trans(Sender char(17) references user(account), Beneficiary char(17) references user(account), transid varchar(25) not null, date date not null, amount int(10))')
 mycursor.execute(
     'create table if not exists amount(transid varchar(25) not null Primary Key,Sender_amount char(17), Beneficiary_amount char(17) )')
-# Will be called When approved by an employee ; Employee Menu Side
-
 
 def check_details(email):
     mycursor.execute('Select email from user')
@@ -76,11 +74,10 @@ def account_number(Name):
 def transid(account):
     mycursor.execute("select transid from user where account = %s", (account,))
     for i in mycursor:
+        print(account + str(int(i[0][16:])+1))
         return (account + str(int(i[0][16:])+1))
 
 # mode must be entered from frontend side 1 = Transfer, 2 = Cash Withdrwal, 3 = Cash Deposit
-
-
 def trans(amount, mode, account, reciever='Self'):
     if(mode == 1):
         if(int(check_balance(str(account))) >= 1000+int(amount)):
@@ -207,7 +204,6 @@ def trans_history(account):
 
 
 def close_account(account):
-    # if(check_account(account)):
     if(check_balance(str(account)) == '0'):
         k = input(
             "Are you Sure to delete Account, Press Y to continue, Else press any key to exit").lower()
@@ -217,14 +213,10 @@ def close_account(account):
         mydb.commit()
         return "Account deleted Successfully"
     balance = check_balance(str(account))
-    trans(k, 3, account)
-    k = input(
-        f"Are you Sure to delete Account with account number {account}, Press Y to continue, Else press any key to exit").lower()
-    if(k != 'y'):
-        return "Operation Cancelled"
+    trans(check_balance(account), 4, account)
     mycursor.execute("delete from user where account = %s", (account,))
     mydb.commit()
-    return "Account deleted succesfully and Rs " + balance + " will be returned to you as cash"
+    return f"Account deleted succesfully and Rs {balance} will be returned to you as cash"
 
 
 def select_account(name):
@@ -251,4 +243,3 @@ def select_account(name):
             print("Please Select from given\n")
         else:
             print("Please enter digits only\n")
-# print(select_account('%Saurav%'))
