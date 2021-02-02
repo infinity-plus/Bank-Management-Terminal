@@ -1,5 +1,4 @@
 # Date Verification Module
-
 def leap_year(a):
     b = int(a.split('/')[0])
     return bool((b%4 == 0 and b%100 != 0) or b% 400 == 0)
@@ -9,7 +8,7 @@ def month_verify(a):
     if(b > 0 and b < 13):
         if( b in [1,3,5,7,8,10,12]):
             return (True,'1')
-        if(b in [4,6,9,11].split()):
+        if(b in [4,6,9,11]):
             return (True,'2')
         return (True,'3')
     return (False,"Month should only lie between 1 to 12")

@@ -177,7 +177,6 @@ while(True):
                             if(k == 0 or x == 0):
                                 print(
                                     '\ntransid, sender, beneficiary, date, amount\n')
-                                # for l in j:
                             print(j, end='')
                             if(y == 0):
                                 k += 1

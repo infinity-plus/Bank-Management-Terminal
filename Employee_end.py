@@ -4,8 +4,6 @@ from datetime import date, datetime
 from date_verifier import date_input
 
 Date = date.today().strftime('%Y/%m/%d')
-
-
 mydb = mysql.connector.connect(host='localhost',
                                user='root',
                                passwd='admin')
@@ -26,7 +24,6 @@ def check_details(email):
                 return (False, 'Email Already Exists in database')
     return (True,)
 
-
 def new_user(name, phone, email):
     if not(phone.isdigit() and len(phone) == len(phone)):
         return (False, "Please Enter Digits in Mobile number and/or Enter mobile number without country code\n")
@@ -41,7 +38,6 @@ def new_user(name, phone, email):
         return(False, "Kindly Enter Name within 20 Characters\n")
 
     account = datetime.today().strftime('%Y%m%d%H%M%S%f')[:16]
-
     mycursor.execute("Insert into user values(%s,%s,%s,%s,%s,%s,%s,%s)",
                      (account, name, phone, email, 1000, account+'1', "savings", Date))
     mycursor.execute("Insert into trans values('Self', %s, %s, %s, %s)",
@@ -51,25 +47,21 @@ def new_user(name, phone, email):
     mydb.commit()
     return (True, "Successfully new Account Created with account number - "+account+"\nFirst Transaction id is " + account+'1')
 
-
 def account_details(reciever):
     mycursor.execute(
         "Select account, name, email, Balance from user where account = %s", (reciever,))
     f = mycursor.fetchall()
     return f
 
-
 def check_balance(account):
     mycursor.execute("select balance from user where account = %s", (account,))
     a = mycursor.fetchall()
     return a[0][0]
 
-
 def account_number(Name):
     mycursor.execute(
         'select account, name from user where name like %s', ('%'+Name+'%',))
     return mycursor.fetchall()
-
 
 def transid(account):
     mycursor.execute("select transid from user where account = %s", (account,))
@@ -77,7 +69,6 @@ def transid(account):
         print(account + str(int(i[0][16:])+1))
         return (account + str(int(i[0][16:])+1))
 
-# mode must be entered from frontend side 1 = Transfer, 2 = Cash Withdrwal, 3 = Cash Deposit
 def trans(amount, mode, account, reciever='Self'):
     if(mode == 1):
         if(int(check_balance(str(account))) >= 1000+int(amount)):
@@ -91,7 +82,7 @@ def trans(amount, mode, account, reciever='Self'):
             a = input(
                 'Press Y if the above details about the reciever are correct\n').lower()
             if(a == 'y'):
-                tid = transid(account)
+                tid = str(int(transid(account))+1)
                 mycursor.execute("insert into trans values(%s,%s,%s,%s,%s)", (
                     account, reciever, tid, date.today().strftime('%Y/%m/%d'), amount))
                 mycursor.execute("insert into amount values(%s,%s,%s)", (tid, check_balance(
@@ -106,7 +97,7 @@ def trans(amount, mode, account, reciever='Self'):
         return "Insufficient Balance"
 
     if(mode == 2):
-        tid = transid(account)
+        tid = str(int(transid(account))+1)
         if(check_balance(str(account)) >= amount+1000):
             mycursor.execute("insert into trans values(%s,'self',%s,%s,%s)",
                              (account, tid, date.today().strftime('%Y/%m/%d'), amount))
@@ -121,7 +112,7 @@ def trans(amount, mode, account, reciever='Self'):
         return "Insufficient Balance"
 
     if(mode == 3):
-        tid = transid(account)
+        tid = str(int(transid(account))+1)
         mycursor.execute("insert into trans values('self', %s, %s, %s,%s)",
                          (account, tid, date.today().strftime('%Y/%m/%d'), amount))
         mycursor.execute("insert into amount values(%s,%s,%s)",
@@ -134,7 +125,7 @@ def trans(amount, mode, account, reciever='Self'):
         return f'{amount} rs has been credited to {account}'
 
     if(mode == 4):
-        tid = transid(account)
+        tid = str(int(transid(account))+1)
         mycursor.execute("insert into trans values(%s,'self',%s,%s,%s)", (account,
                                                                           tid, date.today().strftime('%Y/%m/%d'), check_balance(str(account))))
         mycursor.execute(
@@ -145,7 +136,6 @@ def trans(amount, mode, account, reciever='Self'):
         mydb.commit()
         return str(amount) + " Rs has been withdrawn from " + account + " with transid "+tid+" and Account Has been Closed"
 
-
 def istransid(account, transid):
     mycursor.execute(
         "Select transid from trans where sender = %s or beneficiary = %s", (account, account))
@@ -153,7 +143,6 @@ def istransid(account, transid):
         if i[0] == transid:
             return True
     return False
-
 
 def trans_history(account):
     while(True):
@@ -173,7 +162,7 @@ def trans_history(account):
                         i.append(mycursor1.fetchone())
                         return(True, i)
                     return(False, "Incorrect transid Provided")
-                if(a == 2):  # Needed to be recoded
+                if(a == 2):
                     b = date_input()
                     if(b[0] is True):
                         print('Enter Second Date')
@@ -186,7 +175,6 @@ def trans_history(account):
                                 "select transid, sender, beneficiary, date, beneficiary_amount from trans natural join amount where Date between %s and %s and beneficiary = %s", (b[1], c[1], account))
                             f = mycursor1.fetchall()
                             i = [e, f]
-                            # Here Loop on this value and Print Details
                             return (True, i)
                         return (False, c[1])
                     return (False, b[1])
@@ -202,7 +190,6 @@ def trans_history(account):
                     return (True, i)
                 return (False, b[1])
 
-
 def close_account(account):
     if(check_balance(str(account)) == '0'):
         k = input(
@@ -217,7 +204,6 @@ def close_account(account):
     mycursor.execute("delete from user where account = %s", (account,))
     mydb.commit()
     return f"Account deleted succesfully and Rs {balance} will be returned to you as cash"
-
 
 def select_account(name):
     k, j = 0, []
