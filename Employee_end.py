@@ -2,15 +2,14 @@
 import mysql.connector
 from datetime import date, datetime
 from date_verifier import date_input
+from credentials import Credentials
 
 Date = date.today().strftime('%Y/%m/%d')
-mydb = mysql.connector.connect(host='localhost',
-                               user='root',
-                               passwd='admin')
+mydb = mysql.connector.connect(**Credentials)
 mycursor = mydb.cursor(buffered=False)
 mycursor1 = mydb.cursor(buffered=False)
-mycursor.execute('Create database if not exists bank_Management')
-mycursor.execute('Use Bank_Management')
+# mycursor.execute('Create database if not exists bank_Management')
+# mycursor.execute('Use Bank_Management')
 mycursor.execute('create table if not exists user(account char(17) Primary Key, name Varchar(20) Not Null, Phone char(11) Not Null,email varchar(35) Unique Not Null, Balance int(10) check(Balance >-1) Not Null, transid varchar(25) not null, TOA varchar(10) Not Null, DOC date Not Null)')
 mycursor.execute('create table if not exists trans(Sender char(17) references user(account), Beneficiary char(17) references user(account), transid varchar(25) not null, date date not null, amount int(10))')
 mycursor.execute(
